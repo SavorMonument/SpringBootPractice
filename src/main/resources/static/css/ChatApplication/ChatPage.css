@@ -1,0 +1,151 @@
+body
+{
+    background-color: #90AFC5;
+    background-image: url("../../img/ChatBackground.jpg");
+    background-repeat: no-repeat;
+}
+
+.main-title
+{
+
+}
+
+.main-header
+{
+    padding: 20px
+}
+
+.chat-area-container
+{
+    min-height: 500px;
+    width: 100%;
+    position: relative;
+    padding: 0px;
+}
+
+.chat-area
+{
+    height: 100%;
+    width: 50%;
+    min-width: 300px;
+
+    padding: 0px;
+    left: 25%;
+    position: absolute;
+    background-color: #336B87;
+
+    border: 5px solid #2A3132;
+}
+
+.outside-message-area
+{
+    height: 75%;
+    padding: 5px;
+    margin: 0px;
+}
+
+.messages-area
+{
+    height: 100%;
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column-reverse;
+
+    background-color: #336B87;
+}
+.message
+{
+    width: 95%;
+    padding: 0px;
+    margin: 0px;
+
+    /* border-top: solid 2px #5e3aff; */
+    border-bottom: solid 2px #dfd9fb85;
+
+    color: #fff;
+    word-break: break-all;
+}
+
+.input-area{
+    height: 25%;
+    padding: 15px 5px;
+}
+
+.form-area
+{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.input-text-area
+{
+    width: 65%;
+    height: 100%;
+
+    margin: 0px;
+    padding: 10px;
+}
+
+.button-area
+{
+    width: 25%;
+
+    margin: 0px;
+    padding: 10px;
+}
+
+.btn
+{
+    width: 100%;
+    height: 100%;
+
+    padding: 0px;
+    background-color: #2A3132;
+    color: #fff;
+}
+
+.chat-form
+{
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+    box-sizing: border-box;
+    
+    border-radius: 4px;
+
+    resize: none;
+}
+
+.scrollbar
+{
+    overflow-y: scroll;
+}
+
+.thin-scorllbar::-webkit-scrollbar
+{
+    width: 7px;
+	background-color: #F5F5F5;
+}
+
+.thin-scorllbar::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+	border-radius: 10px;
+}
+
+.thin-scorllbar::-webkit-scrollbar-thumb
+{
+	background-color: #AAA;
+	border-radius: 10px;
+	background-image: -webkit-linear-gradient(90deg,
+	                                          rgba(0, 0, 0, .2) 25%,
+											  transparent 25%,
+											  transparent 50%,
+											  rgba(0, 0, 0, .2) 50%,
+											  rgba(0, 0, 0, .2) 75%,
+											  transparent 75%,
+											  transparent)
+}
