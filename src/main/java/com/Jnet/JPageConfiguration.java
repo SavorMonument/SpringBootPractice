@@ -1,15 +1,11 @@
 package com.Jnet;
 
-import com.Jnet.ChatApplication.Controller.ChatApplicationController;
-import com.Jnet.ChatApplication.Model.ChatMessage;
 import com.Jnet.ChatApplication.Repository.ChatMessageRepository;
 import com.Jnet.ChatApplication.Repository.TempMessageRepository;
-import com.Jnet.ChatApplication.Websocket.Sessions;
+import com.Jnet.ChatApplication.Websocket.SessionHandler;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
@@ -55,8 +51,8 @@ public class JPageConfiguration {
 	}
 
 	@Bean
-	public Sessions sessions(){
+	public SessionHandler sessions(){
 
-		 return Sessions.getInstance();
+		 return SessionHandler.getInstance();
 	}
 }

@@ -1,8 +1,8 @@
 var ws;
+let MAX_NUMBER_OF_MESSAGES = 20;
+
 
 function connect() {
-    //var username = "user" + Math.floor(Math.random() * 1000);
-    
     var host = document.location.host;
     //var pathname = document.location.pathname;
     
@@ -13,8 +13,9 @@ function connect() {
     //     console.log(event.data);
     //     var message = JSON.parse(event.data);
     //     log.innerHTML += message.from + " : " + message.content + "\n";
-
-        postMessage("idk", event.data);
+    
+        var message = JSON.parse(event.data)
+        postMessage(message.author, message.content);
     };
 }
 
@@ -23,19 +24,29 @@ function send() {
     // var json = JSON.stringify({
     //     "content":content
     // });
-    console.log("Messsage sent: \n" + content);
+    // console.log("Messsage sent: \n" + content);
     ws.send(content);
 }
 
 function postMessage(author, message){
 
-    // let child = document.createElement('div');
-    // child.cla
-
+    let messageContainer = document.getElementById("messages");
     let payload = "<div class=\"messsage\">\n<p>" + author + ": " + message + "</p>\n</div>\n";
-    console.log("Got message: " + payload);
-    document.getElementById("messages")
-    .insertAdjacentHTML("afterbegin", payload.toString())
+    // console.log("Got message: " + payload);
+    messageContainer.insertAdjacentHTML("afterbegin", payload.toString())
+
+    let messageCount = messageContainer.childElementCount;
+    console.log("children: " + messageContainer.children[0]);
+    if (messageCount > MAX_NUMBER_OF_MESSAGES){
+
+        removeFirstMessage(messageContainer);
+    }
+}
+
+function removeFirstMessage(messageContainer){
+
+    let firstChild = messageContainer.lastElementChild;
+    messageContainer.removeChild(firstChild);
 }
 
 window.onload = connect();

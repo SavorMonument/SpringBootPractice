@@ -20,10 +20,6 @@ import java.util.List;
 @RequestMapping("/chat")
 public class ChatApplicationController {
 
-    @Autowired
-	@Qualifier("ArrayListTestRepository")
-    private ChatMessageRepository chatMessageRepository;
-
     @RequestMapping(value = {"/", ""}, method = RequestMethod.GET)
 	public String chatPage(Model model){
 
