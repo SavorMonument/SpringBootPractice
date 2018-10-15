@@ -4,6 +4,7 @@ import com.Jnet.ChatApplication.Controller.ChatApplicationController;
 import com.Jnet.ChatApplication.Model.ChatMessage;
 import com.Jnet.ChatApplication.Repository.ChatMessageRepository;
 import com.Jnet.ChatApplication.Repository.TempMessageRepository;
+import com.Jnet.ChatApplication.Websocket.Sessions;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -51,5 +52,11 @@ public class JPageConfiguration {
 	public ChatMessageRepository testRepository(){
 
 		return new TempMessageRepository();
+	}
+
+	@Bean
+	public Sessions sessions(){
+
+		 return Sessions.getInstance();
 	}
 }

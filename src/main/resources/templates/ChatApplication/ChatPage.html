@@ -22,11 +22,11 @@
     <div class="chat-area-container">
         <div class="chat-area">
             <div class="outside-message-area">
-                <div class="messages-area scrollbar container thin-scorllbar">
+                <div id="messages" class="messages-area scrollbar container thin-scorllbar">
                     <!-- th:utext="${formatted_messages}"> -->
-                    <div class="message" th:each="chat_message : ${messages}">
+                    <!-- <div class="message" th:each="chat_message : ${messages}">
                         <p> <span th:content="${chat_message.author}"></span>: <span th:content="${chat_message.content}"></span></p>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <div class="input-area">
