@@ -1,16 +1,21 @@
 package com.Jnet;
 
-import com.Jnet.ChatApplication.Repository.ChatMessageRepository;
-import com.Jnet.ChatApplication.Repository.TempMessageRepository;
-import com.Jnet.ChatApplication.Websocket.SessionHandler;
-import org.springframework.beans.factory.annotation.Qualifier;
+import com.Jnet.ChatApplication.Websocket.MessageReceiver;
+import com.Jnet.ChatApplication.Websocket.MessageSender;
+import com.Jnet.ChatApplication.Websocket.Sessions;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.scheduling.TaskScheduler;
+import org.springframework.scheduling.concurrent.ConcurrentTaskScheduler;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
+import java.util.concurrent.Executors;
+
 @Configuration
-//@EnableWebMvc
+@EnableJpaRepositories("com.Jnet.ChatApplication.Repository")
 public class JPageConfiguration {
 
 	@Bean
@@ -28,31 +33,31 @@ public class JPageConfiguration {
 		return resolver;
 	}
 
+//	@Bean
+//	@Qualifier("ArrayListTestRepository")
+//	@Scope("singleton")
+//	public ChatMessageRepository testRepository(){
+//
+//		return new ListMessageRepository();
+//	}
+
 	@Bean
-//	@Qualifier("ChatApplicationTemplateResolver")
-	public ITemplateResolver ChatTempleateResolver(){
+	@Scope("singleton")
+	public Sessions sessions(){
 
-		SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
-
-		resolver.setPrefix("classpath:/templates/ChatApplication/");
-		resolver.setSuffix(".html");
-		resolver.setTemplateMode("HTML5");
-		resolver.setCacheable(false);
-		resolver.setOrder(1);
-
-		return resolver;
+		return Sessions.getInstance();
 	}
 
 	@Bean
-	@Qualifier("ArrayListTestRepository")
-	public ChatMessageRepository testRepository(){
+	public TaskScheduler taskScheduler(){
 
-		return new TempMessageRepository();
+		return new ConcurrentTaskScheduler(Executors.newSingleThreadScheduledExecutor());
 	}
 
 	@Bean
-	public SessionHandler sessions(){
+	public MessageSender messageSender(){
 
-		 return SessionHandler.getInstance();
+		return Sessions.getInstance();
 	}
+
 }

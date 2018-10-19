@@ -1,8 +1,7 @@
 package com.Jnet.ChatApplication.Websocket;
 
-import com.Jnet.ChatApplication.Repository.ChatMessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.*;
 
@@ -11,13 +10,16 @@ import org.springframework.web.socket.config.annotation.*;
 public class WebSocketConfig implements WebSocketConfigurer {
 
 	@Autowired
-	@Qualifier("ArrayListTestRepository")
-	private ChatMessageRepository chatMessageRepository;
+	private Sessions sessions;
+
+	@Autowired
+	private MessageReceiver messageReceiver;
 
 	@Override
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry webSocketHandlerRegistry) {
 
-		MessageHandler handler = new MessageHandler(chatMessageRepository);
+		SocketMapper handler = new SocketMapper(sessions, messageReceiver);
+
 		webSocketHandlerRegistry.addHandler(handler, "/websocket");
 	}
 }

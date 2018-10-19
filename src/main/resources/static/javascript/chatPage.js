@@ -1,5 +1,15 @@
 var ws;
-let MAX_NUMBER_OF_MESSAGES = 20;
+let MAX_NUMBER_OF_MESSAGES_PER_PAGE = 20;
+
+let pageUser = {username: "placeholder"};
+
+class ChatMessage {
+    constructor(user, content) {
+
+        this.user = user;
+        this.content = content;
+    }
+}
 
 
 function connect() {
@@ -13,23 +23,29 @@ function connect() {
     //     console.log(event.data);
     //     var message = JSON.parse(event.data);
     //     log.innerHTML += message.from + " : " + message.content + "\n";
-    
+        
         var message = JSON.parse(event.data)
-        postMessage(message.author, message.content);
+        postMessage(message.username, message.content);
     };
 }
 
 function send() {
-    var content = document.getElementById("message").value;
-    // var json = JSON.stringify({
-    //     "content":content
-    // });
-    // console.log("Messsage sent: \n" + content);
-    ws.send(content);
+
+    let textArea = document.getElementById("message");
+    if (textArea.value != ""){
+
+        let content = textArea.value;
+
+        var json = JSON.stringify(new ChatMessage(pageUser, content));
+        console.log("Messsage sent: \n" + json);
+        ws.send(json);
+        textArea.value = "";
+    }
 }
 
 function postMessage(author, message){
 
+    console.log("should post now");
     let messageContainer = document.getElementById("messages");
     let payload = "<div class=\"messsage\">\n<p>" + author + ": " + message + "</p>\n</div>\n";
     // console.log("Got message: " + payload);
@@ -37,7 +53,7 @@ function postMessage(author, message){
 
     let messageCount = messageContainer.childElementCount;
     console.log("children: " + messageContainer.children[0]);
-    if (messageCount > MAX_NUMBER_OF_MESSAGES){
+    if (messageCount > MAX_NUMBER_OF_MESSAGES_PER_PAGE){
 
         removeFirstMessage(messageContainer);
     }
@@ -45,8 +61,13 @@ function postMessage(author, message){
 
 function removeFirstMessage(messageContainer){
 
-    let firstChild = messageContainer.lastElementChild;
-    messageContainer.removeChild(firstChild);
+    let lastChild = messageContainer.lastElementChild;
+    messageContainer.removeChild(lastChild);
+}
+
+function clearElem(elem){
+
+    elem.value = "";
 }
 
 window.onload = connect();

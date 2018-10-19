@@ -1,98 +1,86 @@
 package com.Jnet.ChatApplication.Model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import lombok.Getter;
+import lombok.Setter;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.Objects;
 
-@Document(collection = "chat_message")
+@Entity
 public class ChatMessage {
 
-    @Id
-    private String id;
+	@Id
+	@GeneratedValue
+    private int ID;
 
+	@ManyToOne
+	@NotNull
+	@Getter
+	@Setter
+    private User author;
+
+	@NotNull
+	@Getter
+	@Setter
     private String content;
-    private String author;
-    private Date createDate;
 
-	public ChatMessage(String content, String author, Date createDate) {
-        this.content = content;
-        this.author = author;
-        this.createDate = createDate;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
-
-    public ChatMessage copy(){
-
-    	ChatMessageBuilder copy = new ChatMessageBuilder();
-
-    	copy.setAuthor(this.author)
-			.setContent(this.content)
-    		.setDate(this.createDate);
-
-    	return copy.createChatMessage();
+	public ChatMessage() {
 	}
 
-    @Override
-    public String toString() {
+	public ChatMessage(User author, String content) {
 
-        return String.format("ChatMessage[id=%s, content= %s, author= %s, createDate= %s]",
-                id, content, author, createDate.toString());
+        this.content = content;
+        this.author = author;
     }
 
-    public String getDivFormattedStringFor(){
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		ChatMessage that = (ChatMessage) o;
+		return Objects.equals(ID, that.ID);
+	}
 
-    	return String.format("<div class=\"container message\">\n" +
-							"<p>%s: %s</p>\n" +
-							"</div>", author.toString(), content.toString());
-    }
+	@Override
+	public int hashCode() {
+		return Objects.hash(ID);
+	}
 
-	public static class ChatMessageBuilder {
+	@Override
+	public String toString() {
 
-		private String author;
-		private String content;
-		private Date date = new Date();
+		return String.format("Chat Message: \n" +
+							"ID = %d\n" +
+							"Author = %s\n" +
+							"content = %s\n", ID, author.getUsername(), content);
+	}
 
-		public ChatMessageBuilder setContent(String content) {
+	public static ChatMessage jSonToChatMessage(@NotNull JsonObject jSon){
 
-			this.content = content;
-			return this;
-		}
+		ChatMessage chatMessage = new ChatMessage();
+		chatMessage.author = User.jSonToUser(jSon.getAsJsonObject("user"));
+		JsonElement elem;
 
-		public ChatMessageBuilder setAuthor(String author) {
+		if (null != (elem = jSon.get("content"))){
+			chatMessage.content = elem.getAsString();
+		} else
+			throw new IllegalArgumentException("Not a valid Json message" + jSon.toString());
 
-			this.author = author;
-			return this;
-		}
+		return chatMessage;
+	}
 
-		public ChatMessageBuilder setDate(Date date) {
+	public static JsonObject ChatMessageToJson(@NotNull ChatMessage message){
+		assert (null != message.author) && (null != message.content): "message has null members";
 
-			this.date = date;
-			return this;
-		}
+		JsonObject jSonMessage = new JsonObject();
 
-		public ChatMessage createChatMessage() {
+		jSonMessage.addProperty("user", User.UserToJson(message.author).toString());
+		jSonMessage.addProperty("content", message.getContent());
 
-			if (null == date)
-				return new ChatMessage(content, author, new Date());
-			else
-				return new ChatMessage(content, author, date);
-		}
+		return jSonMessage;
 	}
 }
