@@ -29,8 +29,8 @@ public class ResolveSocketEvents implements MessageReceiver {
 	@PostConstruct
 	private void test(){
 
-		userRepo.save(new User("Alex"));
-		userRepo.save(new User("placeholder"));
+//		userRepo.save(new User("Alex"));
+//		userRepo.save(new User("placeholder"));
 	}
 
 	@Override
@@ -83,60 +83,4 @@ public class ResolveSocketEvents implements MessageReceiver {
 
 		messageSender.sendMessageToAll(jSonMessage);
 	}
-
-//	private class JsonToChatMessageTemplate {
-//
-//		String username;
-//		String content;
-//
-//		JsonToChatMessageTemplate(@NotNull JsonObject jSon){
-//
-//			username = jSon.get("username").toString();
-//			content = jSon.get("content").toString();
-//		}
-//
-//		JsonToChatMessageTemplate(@NotNull ChatMessage chatMessage){
-//
-//			User user = new User("");
-//			username = chatMessage.author.getUsername();
-//			content = chatMessage.content;
-//		}
-//
-//
-//		JsonObject buildJsonObject(){
-//
-//			JsonObject jsonObject = new JsonObject();
-//
-//			jsonObject.addProperty("username", username);
-//			jsonObject.addProperty("content", content);
-//
-//			return jsonObject;
-//			//return (new JsonParser().parse(new Gson().toJson(this))).getAsJsonObject();
-//		}
-//
-//		ChatMessage buildChatMessage(){
-//
-//			ChatMessage chatMessage = new ChatMessage();
-//			User user = resolveUser(username);
-//
-//			chatMessage.author = user;
-//			chatMessage.content = content;
-//
-//			return chatMessage;
-//		}
-//
-//		private User resolveUser(String username) {
-//
-//			User user = userRepo.findByUsername(username);
-//
-//			if (null == user){
-//
-//				user = new User(username);
-//				userRepo.save(user);
-//			}
-//
-//			return user;
-//		}
-//	}
-
 }

@@ -14,6 +14,7 @@ import java.util.Objects;
 public class ChatMessage {
 
 	@Id
+	@Getter
 	@GeneratedValue
     private int ID;
 

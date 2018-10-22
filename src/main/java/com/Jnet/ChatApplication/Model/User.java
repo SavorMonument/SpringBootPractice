@@ -7,17 +7,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @Entity
+@Table(name = "users")
 public class User {
 
 	@Id
+	@Getter
 	@GeneratedValue
 	private int ID;
 
@@ -26,6 +25,15 @@ public class User {
 	@Getter
 	@Setter
 	private String username;
+
+	@Column(unique = true)
+	@Getter
+	@Setter
+	private String sessionId;
+
+	@Getter
+	@Setter
+	private String textColor = "black";
 
 	public User() {
 	}
@@ -70,6 +78,7 @@ public class User {
 		JsonObject jSonUser = new JsonObject();
 
 		jSonUser.addProperty("username", user.getUsername());
+		jSonUser.addProperty("textColor", user.getTextColor());
 
 		return jSonUser;
 	}

@@ -7,7 +7,7 @@ body
 
 .main-title
 {
-
+    text-align: center;
 }
 
 .main-header
@@ -15,26 +15,29 @@ body
     padding: 20px
 }
 
-.chat-area-container
+.chat-section
 {
     min-height: 500px;
+    height: 500px;
     width: 100%;
-    position: relative;
     padding: 0px;
 }
 
-.chat-area
+.basic-page-box{
+
+    background-color: #336B87;
+    border: 3px solid #2A3132;
+    border-radius: 5px;
+}
+
+.chat-box
 {
     height: 100%;
     width: 50%;
-    min-width: 300px;
+    min-width: 400px;
 
     padding: 0px;
-    left: 25%;
-    position: absolute;
-    background-color: #336B87;
-
-    border: 5px solid #2A3132;
+    margin: auto;
 }
 
 .outside-message-area
@@ -72,7 +75,7 @@ body
     padding: 15px 5px;
 }
 
-.form-area
+.chat-message-form-area
 {
     height: 100%;
     display: flex;
@@ -116,6 +119,45 @@ body
     border-radius: 4px;
 
     resize: none;
+}
+
+.login-section
+{
+    height: 200px;
+    padding: 0px;
+    margin: 0px;
+
+    padding-top: 30px;
+}
+
+.login-box
+{
+    height: 100%;
+    width: 300px;
+    margin: auto;
+}
+.form-outside-box
+{
+    height: 100%;
+}
+
+.user-sign-in-text
+{
+    padding: 0 3px;
+}
+
+.user-sign-in-color
+{
+    padding: 0 3px;
+}
+
+.user-sign-in-button
+{
+    margin: auto;
+    /* position: absolute; */
+    /* bottom: 5px; */
+    height: 100%;
+    width: 50%;
 }
 
 .scrollbar

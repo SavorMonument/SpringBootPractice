@@ -19,8 +19,8 @@
             <h1 class="main-title content-center">CHAT</h1>
         </div>
     </header>
-    <div class="chat-area-container">
-        <div class="chat-area">
+    <div class="chat-section">
+        <div class="chat-box basic-page-box">
             <div class="outside-message-area">
                 <div id="messages" class="messages-area scrollbar container thin-scorllbar">
                     <!-- th:utext="${formatted_messages}"> -->
@@ -30,21 +30,41 @@
                 </div>
             </div>
             <div class="input-area">
-                <form class="form-area">
+                <form class="chat-message-form-area">
                     <div class="input-text-area">
                         <textarea class="chat-form" id="message" autofocus placeholder="Type Message"></textarea>
                     </div>
                     <div class="button-area">
                         <!-- <input class="btn" type="button" onclick="send()"> -->
-                        <button type="button" onclick="send()" class="btn btn-default">Submit<br>Message</button>
+                        <button type="button" onclick="send()" class="btn btn-default" 
+                        id="submitMessageButton" disabled>Submit<br>Message</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-    <div class="login-area">
-        <div>
-            
+    <div class="login-section">
+        <div class="login-box basic-page-box">
+            <div class="form-outside-box">
+                <form action="/chat/set-user" method="POST">
+                    <div class="d-flex p-2 bd-highlight flex-row">
+                        <div class="user-sign-in-text flex-fill">
+                            <input class="form-control" type="text" name="username" placeholder="Username"
+                            required>
+                        </div>
+                        <div class="user-sign-in-color flex-fill">
+                            <select class="form-control" name="textColor">
+                                <option value="blue">Blue</option>
+                                <option value="red">Red</option>
+                                <option value="green">Green</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="user-sign-in-button pt-4">
+                        <input class="btn form-control"  type="submit" value="Set user">
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
     <script type="text/javascript" , th:src="@{javascript/chatPage.js}"></script>
